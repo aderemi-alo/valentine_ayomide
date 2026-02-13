@@ -62,7 +62,7 @@ const List<String> kContentsCompanionImageUrls = [
   'assets/images/IMG_3697.jpg',
 ];
 
-const String kLetterImageUrl = 'assets/images/IMG_6323.JPG';
+const String kLetterImageUrl = 'assets/images/IMG_6323.jpg';
 
 const String kLetterBody =
     'On this day dedicated to love, I write to you, to let you know where my heart lies. It rests with you, wherever you may go, whatever you may do. It follows you on the air, land and sea as you make your travels. It beats according to your moods always seeking to alleviate your sadness and elevate your joy. My heart belongs to you and only you my moonlight. \n\nI love you more than I can ever say and more than I can ever show, but I will always continue to try. I pray that this conveys a little of what I feel for you my love. \n\nI love you darling \nTo the moon and back \nAlways and forever. \n\nHappy Valentines day my sweetheart.';
