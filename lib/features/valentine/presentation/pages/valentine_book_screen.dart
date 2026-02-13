@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../data/valentine_content.dart';
 import '../../domain/jump_target.dart';
+import '../widgets/animated_heart_background.dart';
 import '../widgets/content_pages.dart';
 import '../widgets/navigation_controls.dart';
 import '../widgets/spread_layout.dart';
@@ -58,46 +59,51 @@ class _ValentineBookScreenState extends State<ValentineBookScreen> {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(gradient: backgroundGradient),
-        child: SafeArea(
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              final isWide = constraints.maxWidth >= 980;
-              final currentIndex = isWide ? _wideIndex : _mobileIndex;
-              final pageCount = isWide ? _widePageCount : _mobilePageCount;
+        child: Stack(
+          children: [
+            Positioned.fill(child: AnimatedHeartBackground(isDarkMode: isDark)),
+            SafeArea(
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  final isWide = constraints.maxWidth >= 980;
+                  final currentIndex = isWide ? _wideIndex : _mobileIndex;
+                  final pageCount = isWide ? _widePageCount : _mobilePageCount;
 
-              return Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 12),
-                    child: ValentineTopBar(
-                      onJump: (target) => _jumpTo(target, isWide),
-                      isDarkMode: isDark,
-                      onToggleThemeMode: widget.onToggleThemeMode,
-                    ),
-                  ),
-                  Expanded(
-                    child: AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 320),
-                      child: isWide
-                          ? _buildWidePager(constraints.maxWidth)
-                          : _buildMobilePager(),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
-                    child: ValentineBottomControls(
-                      index: currentIndex,
-                      total: pageCount,
-                      canGoBack: currentIndex > 0,
-                      canGoForward: currentIndex < pageCount - 1,
-                      onBack: () => _stepPage(isWide: isWide, delta: -1),
-                      onForward: () => _stepPage(isWide: isWide, delta: 1),
-                    ),
-                  ),
-                ],
-              );
-            },
-          ),
+                  return Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 20, 20, 12),
+                        child: ValentineTopBar(
+                          onJump: (target) => _jumpTo(target, isWide),
+                          isDarkMode: isDark,
+                          onToggleThemeMode: widget.onToggleThemeMode,
+                        ),
+                      ),
+                      Expanded(
+                        child: AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 320),
+                          child: isWide
+                              ? _buildWidePager(constraints.maxWidth)
+                              : _buildMobilePager(),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
+                        child: ValentineBottomControls(
+                          index: currentIndex,
+                          total: pageCount,
+                          canGoBack: currentIndex > 0,
+                          canGoForward: currentIndex < pageCount - 1,
+                          onBack: () => _stepPage(isWide: isWide, delta: -1),
+                          onForward: () => _stepPage(isWide: isWide, delta: 1),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );
