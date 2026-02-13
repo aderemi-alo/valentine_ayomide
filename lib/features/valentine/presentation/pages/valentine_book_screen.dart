@@ -7,7 +7,9 @@ import '../widgets/navigation_controls.dart';
 import '../widgets/spread_layout.dart';
 
 class ValentineBookScreen extends StatefulWidget {
-  const ValentineBookScreen({super.key});
+  const ValentineBookScreen({super.key, required this.onToggleThemeMode});
+
+  final VoidCallback onToggleThemeMode;
 
   @override
   State<ValentineBookScreen> createState() => _ValentineBookScreenState();
@@ -40,15 +42,22 @@ class _ValentineBookScreenState extends State<ValentineBookScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final backgroundGradient = isDark
+        ? const LinearGradient(
+            colors: [Color(0xFF18141A), Color(0xFF231B24), Color(0xFF32202A)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          )
+        : const LinearGradient(
             colors: [Color(0xFFFFF8EF), Color(0xFFFFF1E6), Color(0xFFFDE6E8)],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-          ),
-        ),
+          );
+
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(gradient: backgroundGradient),
         child: SafeArea(
           child: LayoutBuilder(
             builder: (context, constraints) {
@@ -62,6 +71,8 @@ class _ValentineBookScreenState extends State<ValentineBookScreen> {
                     padding: const EdgeInsets.fromLTRB(20, 20, 20, 12),
                     child: ValentineTopBar(
                       onJump: (target) => _jumpTo(target, isWide),
+                      isDarkMode: isDark,
+                      onToggleThemeMode: widget.onToggleThemeMode,
                     ),
                   ),
                   Expanded(
@@ -144,19 +155,19 @@ class _ValentineBookScreenState extends State<ValentineBookScreen> {
       final imageOnLeft = (index - storyStart).isEven;
       return (
         left: imageOnLeft
-            ? StoryImagePage(
-                title: story.title,
-                imageUrls: story.imageUrls,
-                caption: 'Photo collage placeholder for ${story.title}',
-              )
-            : StoryNotePage(heading: story.title, body: story.note),
-        right: imageOnLeft
-            ? StoryNotePage(heading: story.title, body: story.note)
-            : StoryImagePage(
-                title: story.title,
-                imageUrls: story.imageUrls,
-                caption: 'Photo collage placeholder for ${story.title}',
+            ? StoryImagePage(title: story.title, imageUrls: story.imageUrls)
+            : StoryNotePage(
+                heading: story.title,
+                body: story.note,
+                loveNotePlaceholder: story.loveNotePlaceholder,
               ),
+        right: imageOnLeft
+            ? StoryNotePage(
+                heading: story.title,
+                body: story.note,
+                loveNotePlaceholder: story.loveNotePlaceholder,
+              )
+            : StoryImagePage(title: story.title, imageUrls: story.imageUrls),
       );
     }
 
@@ -164,7 +175,7 @@ class _ValentineBookScreenState extends State<ValentineBookScreen> {
       left: const SingleImagePage(
         title: 'For You, My Love',
         imageUrl: kLetterImageUrl,
-        caption: 'Replace with your favorite picture together',
+        caption: 'My woman in all her beauty and grace.',
       ),
       right: const LetterPage(letterBody: kLetterBody),
     );

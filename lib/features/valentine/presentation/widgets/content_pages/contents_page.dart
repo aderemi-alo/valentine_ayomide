@@ -10,6 +10,8 @@ class ContentsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return BookPage(
       child: Padding(
         padding: const EdgeInsets.all(24),
@@ -19,16 +21,16 @@ class ContentsPage extends StatelessWidget {
             Text(
               'Contents',
               style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                color: const Color(0xFF4D2330),
+                color: colorScheme.onSurface,
                 fontWeight: FontWeight.w700,
               ),
             ),
             const SizedBox(height: 14),
             Text(
               'Use the jump buttons above any time.',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyMedium?.copyWith(color: const Color(0xFF7B4A55)),
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                color: colorScheme.onSurfaceVariant,
+              ),
             ),
             const SizedBox(height: 22),
             ...storySections.asMap().entries.map(
@@ -43,7 +45,7 @@ class ContentsPage extends StatelessWidget {
                         '${entry.key + 1}',
                         style: Theme.of(context).textTheme.titleMedium
                             ?.copyWith(
-                              color: const Color(0xFFB65063),
+                              color: colorScheme.primary,
                               fontWeight: FontWeight.w700,
                             ),
                       ),
@@ -53,7 +55,7 @@ class ContentsPage extends StatelessWidget {
                       child: Text(
                         entry.value.title,
                         style: Theme.of(context).textTheme.titleMedium
-                            ?.copyWith(color: const Color(0xFF5B2B35)),
+                            ?.copyWith(color: colorScheme.onSurface),
                       ),
                     ),
                   ],
@@ -65,7 +67,7 @@ class ContentsPage extends StatelessWidget {
               'Finale: A Valentine Letter',
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                 fontStyle: FontStyle.italic,
-                color: const Color(0xFFB7445E),
+                color: colorScheme.primary,
               ),
             ),
           ],

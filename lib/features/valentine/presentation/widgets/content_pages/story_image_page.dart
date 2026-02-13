@@ -8,15 +8,15 @@ class StoryImagePage extends StatelessWidget {
     super.key,
     required this.title,
     required this.imageUrls,
-    required this.caption,
   });
 
   final String title;
   final List<String> imageUrls;
-  final String caption;
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return BookPage(
       child: Padding(
         padding: const EdgeInsets.all(20),
@@ -26,7 +26,7 @@ class StoryImagePage extends StatelessWidget {
             Text(
               title,
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                color: const Color(0xFF502732),
+                color: colorScheme.onSurface,
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -38,12 +38,6 @@ class StoryImagePage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            Text(
-              caption,
-              style: Theme.of(
-                context,
-              ).textTheme.bodySmall?.copyWith(color: const Color(0xFF865A64)),
-            ),
           ],
         ),
       ),

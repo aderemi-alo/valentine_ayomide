@@ -9,6 +9,8 @@ class LetterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return BookPage(
       child: Padding(
         padding: const EdgeInsets.all(24),
@@ -18,7 +20,7 @@ class LetterPage extends StatelessWidget {
             Text(
               'My Valentine Letter',
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                color: const Color(0xFF4A2130),
+                color: colorScheme.onSurface,
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -29,7 +31,7 @@ class LetterPage extends StatelessWidget {
                   letterBody,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     height: 1.85,
-                    color: const Color(0xFF623B45),
+                    color: colorScheme.onSurfaceVariant,
                   ),
                 ),
               ),

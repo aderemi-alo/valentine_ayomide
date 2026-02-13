@@ -61,7 +61,7 @@ class PhotoCollage extends StatelessWidget {
       borderRadius: BorderRadius.circular(14),
       child: imageUrl.isEmpty
           ? ImageFallback(label: fallbackLabel)
-          : Image.network(
+          : Image.asset(
               imageUrl,
               fit: BoxFit.cover,
               width: double.infinity,

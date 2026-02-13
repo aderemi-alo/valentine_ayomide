@@ -3,13 +3,21 @@ import 'package:flutter/material.dart';
 import '../book_page.dart';
 
 class StoryNotePage extends StatelessWidget {
-  const StoryNotePage({super.key, required this.heading, required this.body});
+  const StoryNotePage({
+    super.key,
+    required this.heading,
+    required this.body,
+    required this.loveNotePlaceholder,
+  });
 
   final String heading;
   final String body;
+  final String loveNotePlaceholder;
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return BookPage(
       child: Padding(
         padding: const EdgeInsets.all(24),
@@ -19,7 +27,7 @@ class StoryNotePage extends StatelessWidget {
             Text(
               heading,
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                color: const Color(0xFF4A2130),
+                color: colorScheme.onSurface,
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -30,17 +38,17 @@ class StoryNotePage extends StatelessWidget {
                   body,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     height: 1.8,
-                    color: const Color(0xFF623B45),
+                    color: colorScheme.onSurfaceVariant,
                   ),
                 ),
               ),
             ),
             const SizedBox(height: 10),
             Text(
-              'Love note space',
+              loveNotePlaceholder,
               style: Theme.of(context).textTheme.labelLarge?.copyWith(
                 letterSpacing: 1.2,
-                color: const Color(0xFFB14761),
+                color: colorScheme.primary,
               ),
             ),
           ],

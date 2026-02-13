@@ -3,18 +3,27 @@ import 'package:flutter/material.dart';
 import '../../domain/jump_target.dart';
 
 class ValentineTopBar extends StatelessWidget {
-  const ValentineTopBar({super.key, required this.onJump});
+  const ValentineTopBar({
+    super.key,
+    required this.onJump,
+    required this.isDarkMode,
+    required this.onToggleThemeMode,
+  });
 
   final ValueChanged<JumpTarget> onJump;
+  final bool isDarkMode;
+  final VoidCallback onToggleThemeMode;
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.7),
+        color: colorScheme.surfaceContainerHigh.withValues(alpha: 0.86),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE9D4D8)),
+        border: Border.all(color: colorScheme.outlineVariant),
       ),
       child: Wrap(
         alignment: WrapAlignment.spaceBetween,
@@ -41,6 +50,15 @@ class ValentineTopBar extends StatelessWidget {
             label: 'Letter',
             onTap: () => onJump(JumpTarget.letter),
           ),
+          IconButton.filledTonal(
+            onPressed: onToggleThemeMode,
+            tooltip: isDarkMode
+                ? 'Switch to light mode'
+                : 'Switch to dark mode',
+            icon: Icon(
+              isDarkMode ? Icons.light_mode_rounded : Icons.dark_mode_rounded,
+            ),
+          ),
         ],
       ),
     );
@@ -51,11 +69,13 @@ class ValentineTopBar extends StatelessWidget {
     required String label,
     required VoidCallback onTap,
   }) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return FilledButton.tonal(
       onPressed: onTap,
       style: FilledButton.styleFrom(
-        foregroundColor: const Color(0xFF5B2B35),
-        backgroundColor: const Color(0xFFF8E8EB),
+        foregroundColor: colorScheme.onSecondaryContainer,
+        backgroundColor: colorScheme.secondaryContainer,
       ),
       child: Text(label),
     );
@@ -82,12 +102,15 @@ class ValentineBottomControls extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Container(
+      constraints: const BoxConstraints(maxWidth: 400),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.72),
+        color: colorScheme.surfaceContainerHigh.withValues(alpha: 0.88),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE9D4D8)),
+        border: Border.all(color: colorScheme.outlineVariant),
       ),
       child: Row(
         children: [
@@ -103,7 +126,7 @@ class ValentineBottomControls extends StatelessWidget {
               textAlign: TextAlign.center,
               style: Theme.of(
                 context,
-              ).textTheme.titleMedium?.copyWith(color: const Color(0xFF60343D)),
+              ).textTheme.titleMedium?.copyWith(color: colorScheme.onSurface),
             ),
           ),
           const SizedBox(width: 10),

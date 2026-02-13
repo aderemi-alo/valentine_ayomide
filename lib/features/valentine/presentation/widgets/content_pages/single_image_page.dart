@@ -17,6 +17,8 @@ class SingleImagePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return BookPage(
       child: Padding(
         padding: const EdgeInsets.all(20),
@@ -26,7 +28,7 @@ class SingleImagePage extends StatelessWidget {
             Text(
               title,
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                color: const Color(0xFF502732),
+                color: colorScheme.onSurface,
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -34,7 +36,7 @@ class SingleImagePage extends StatelessWidget {
             Expanded(
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(16),
-                child: Image.network(
+                child: Image.asset(
                   imageUrl,
                   fit: BoxFit.cover,
                   width: double.infinity,
@@ -46,9 +48,9 @@ class SingleImagePage extends StatelessWidget {
             const SizedBox(height: 10),
             Text(
               caption,
-              style: Theme.of(
-                context,
-              ).textTheme.bodySmall?.copyWith(color: const Color(0xFF865A64)),
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: colorScheme.onSurfaceVariant,
+              ),
             ),
           ],
         ),

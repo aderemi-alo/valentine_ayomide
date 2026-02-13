@@ -7,14 +7,20 @@ class BookPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFFFFFCFA),
+        color: colorScheme.surface,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: const Color(0xFFE7CED2), width: 1.2),
+        border: Border.all(color: colorScheme.outlineVariant, width: 1.2),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF8C5A63).withValues(alpha: 0.12),
+            color: Colors.black.withValues(
+              alpha: Theme.of(context).brightness == Brightness.dark
+                  ? 0.32
+                  : 0.12,
+            ),
             blurRadius: 24,
             offset: const Offset(0, 12),
           ),
